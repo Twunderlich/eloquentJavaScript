@@ -340,4 +340,53 @@ function nth( list, pos ) {
 	return ele;
 }
 
-console.log( nth( list, 4) );
+// console.log( nth( list, 4) );
+
+// chapter 4 = Deep comparison
+
+// The == operator compares objects by identity. But sometimes, you would prefer to compare the values of their actual properties.
+//
+// Write a function, deepEqual, that takes two values and returns true only if they are the same value or are objects with the same
+// properties whose values are also equal when compared with a recursive call to deepEqual.
+//
+// To find out whether to compare two things by identity (use the === operator for that) or by looking at their properties, 
+// you can use the typeof operator. If it produces "object" for both values, you should do a deep comparison. But you have to take 
+// one silly exception into account: by a historical accident, typeof null also produces "object".
+
+function deepEqual( valueOne, valueTwo ) {
+	var areEqual = true;
+	if ( typeof valueOne !== 'object' && typeof valueTwo !== 'object' ) {
+		areEqual = valueOne === valueTwo;
+	} else if ( valueOne !== null && valueTwo !== null ) {
+		if ( Array.isArray( valueOne ) && Array.isArray( valueTwo ) ) {
+			if ( valueOne.length !== valueTwo.length ) {
+				areEqual = false;
+			} else { 
+				valueOne.forEach( function( val, i ) {
+					if ( deepEqual( valueOne[ i ], valueTwo[ i ] ) !== true ) {
+						areEqual = false;
+					}
+				} );
+			}
+		} else {
+			if ( Object.keys( valueOne ).length !== Object.keys( valueTwo ).length ) {
+				areEqual = false;
+			} else {
+				for ( var key in valueOne ) {
+					if ( deepEqual( valueOne[ key ], valueTwo[ key ] ) !== true ) {
+						areEqual = false;
+					}
+				}
+			}
+		}
+	}
+	return areEqual;
+}
+
+// var obj = {here: {is: "an"}, object: 2};
+// console.log(deepEqual(obj, obj));
+// // → true
+// console.log(deepEqual(obj, {here: 1, object: 2}));
+// // → false
+// console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// // → true
