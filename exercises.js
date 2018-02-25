@@ -236,7 +236,7 @@ function sum( numArray ) {
 
 
 
-// chapter 4 - Reversing an array - attempted*
+// chapter 4 - Reversing an array - completed
 //
 // Write two functions, reversArray and reverseArrayInPlace, does what the reverse method does: it modifies the array 
 // given as argument in order to reverse its elements. Neither may use the standard reverse method.
@@ -261,9 +261,8 @@ function reverseArrayInPlace( numArray ) {
 }
 
 // console.log( reverseArrayInPlace( range( 1, 10 ) ) );
-// *reverseArrayInPlace is not working
 
-// chapter 4 - A list - 
+// chapter 4 - A list - incomplete
 
 var list = {
   value: 1,
@@ -303,3 +302,42 @@ function listToArray( list ) {
 
 // console.log( JSON.stringify( listToArray( list ) ) === JSON.stringify( range( 1, 3 ) ) );
 // console.log( listToArray( list ) );
+
+// Write the helper function prepend, which takes an element and a list and creates a new list that that
+// adds the element to the front of the input list.
+
+function prepend( ele, list ) {
+	return { value: ele, rest: list };
+} 
+
+// var prependedList = prepend( 4, list );
+// console.log( prepend( 5, prependedList ) );
+
+// Write nth, which takes a list and a number, and return the element at the given position in the list,
+// or undefined when there is no such element
+//
+// Make it recursive
+
+// function nth( list, pos ) {
+// 	var count = 1;
+// 	for ( var node = list; node; node = node.rest ) {
+// 		if ( count === pos ) {
+// 			return node.value;
+// 		}
+// 		count++;
+// 	}
+// }
+
+function nth( list, pos ) {
+	var cur = list;
+	var ele = undefined;
+
+	if ( pos > 1 ) {
+		ele = nth( cur.rest, pos - 1);
+	} else {
+		ele = cur === null ? undefined : cur.value;
+	}
+	return ele;
+}
+
+console.log( nth( list, 4) );
