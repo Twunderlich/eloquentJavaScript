@@ -504,7 +504,25 @@ function avgAgePerCentury( arr ) {
 //
 // Write two functions, every and some, that behave like these methods, except that they take the array as their first argument rather than being a method.
 
-// Your code here.
+function every( arr, func ) {
+	var isTrue = true;
+  	arr.forEach( function( ele ) {
+    	if ( !func( ele ) ) {
+          	isTrue = false;
+        }
+    } );
+    return isTrue;
+}
+
+function some( arr, func ) {
+  var oneIsTrue = false;
+  arr.forEach( function( ele ) {
+    if ( func( ele ) ) {
+      oneIsTrue = true;
+    }
+  } );
+  return oneIsTrue;
+}
 
 // console.log(every([NaN, NaN, NaN], isNaN));
 // → true
